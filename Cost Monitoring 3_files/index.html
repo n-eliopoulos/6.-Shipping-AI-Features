@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 3: Cost Monitoring</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="61"><div class="player-progress-fill" style="width: 61%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="cost-attribution">
+  <h2>Cost Attribution</h2>
+
+  <p>Knowing total AI spend is not enough. You need to know: "Trade surveillance costs $X/month, compliance screening costs $Y/month." Cost attribution maps token usage to dollar amounts, broken down by feature, team, and model.</p>
+
+  <h3>From tokens to dollars</h3>
+  <pre><code>PRICING = {
+    "claude-sonnet": {"input": 3.00 / 1_000_000, "output": 15.00 / 1_000_000},
+    "claude-haiku":  {"input": 1.00 / 1_000_000, "output":  5.00 / 1_000_000},
+}
+
+def compute_cost(model, input_tokens, output_tokens):
+    rates = PRICING[model]
+    return (input_tokens * rates["input"]) + (output_tokens * rates["output"])</code></pre>
+
+  <h3>Cost allocation tags</h3>
+  <p>Every AI call should carry tags that enable attribution:</p>
+  <ul>
+    <li><code>feature</code> — Which product feature triggered this call</li>
+    <li><code>team</code> — Which team owns the feature</li>
+    <li><code>model</code> — Which model was used</li>
+    <li><code>environment</code> — Production vs. staging vs. development</li>
+  </ul>
+
+  <h3>Chargeback models</h3>
+  <p>For shared AI infrastructure, teams need to see their share of the bill. Two common models:</p>
+  <ul>
+    <li><strong>Direct attribution:</strong> Each team pays for their tagged usage. Simple, fair, but requires consistent tagging.</li>
+    <li><strong>Proportional allocation:</strong> Shared costs (platform overhead) split by usage percentage. More complex but accounts for shared infrastructure.</li>
+  </ul>
+
+  <aside class="callout">
+    <strong>Interactive:</strong> The cost attribution dashboard below shows a pie chart and table with cost breakdown by feature, team, and model. Run calls tagged with different features and watch the attribution update in real time.
+  </aside>
+
+  <aside class="key-takeaway">
+    Cost attribution turns "AI costs $20K/month" into "trade surveillance costs $8K, compliance screening costs $6K, and report generation costs $6K." That's the difference between a budget line item and an actionable optimization target.
+  </aside>
+</section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 3 of 6</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

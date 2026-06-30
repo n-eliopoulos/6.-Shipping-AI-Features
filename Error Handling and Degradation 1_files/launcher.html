@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!-- saved from url=(0437)https://cdn5.dcbstatic.com/dcd/scormapi_v60/launcher.html?host=learn.finra.org&id_user=24182&id_reference=92775&scorm_version=1.2&id_resource=7047&id_item=2067&idscorm_organization=2067&id_package=2067&launch_type=lightbox&id_course=55497&player=hydra&autoplay_enabled=0&name=shipping-ai-features&return_url=learn.finra.org&as_json=1&auth_code=e77ec1540903ee7993d6fff77a29b052aa36fa49&context=lms&show_expired_session_modal=false&debug=1 -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<title>Shipping AI Features</title>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1, minimal-ui">
+        <!-- js-->
+				<script type="text/javascript" src="./jquery.min.js"></script>
+        <script type="text/javascript" src="./purl.js"></script>
+        <!-- api -->
+        <script type="text/javascript" src="./api_12.js"></script>
+		<script type="text/javascript" src="./api_2004.js"></script>
+				<!-- controller -->
+		<script type="text/javascript" src="./dcd_player.js"></script>
+        <!-- css -->
+        <link rel="stylesheet" href="./main.css" media="all">
+	</head>
+	<body class="launcher" dir="ltr">
+		<div id="wrapper">
+            <iframe allowfullscreen="true" id="sco" name="sco" src="./index.html" frameborder="0"></iframe>
+		</div>
+        <div id="error"></div>
+	
+    <script>
+        $(function() {
+            var html = $('html');
+            // when the dom is ready, start with the player
+            window.dcd_player = new DCDPlayer({
+                init_url:	window.location.href,
+                viewport_width: html.width(),
+                viewport_height: html.height(),
+                size_diff: 0
+            });
+            if (window.dcd_player) {
+                window.dcd_player.launch();
+            } else {
+                // initialization failed !
+                $('#error').html("There was an error in the intialization of the player, please try reopening the course again.");
+                $('#sco').remove();
+            }
+        });
+    </script>
+
+</body></html>

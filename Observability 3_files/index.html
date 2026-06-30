@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 2: Observability</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="36"><div class="player-progress-fill" style="width: 36%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="core-metrics">
+  <h2>Core Metrics</h2>
+
+  <p>Four metrics you must track for every AI feature in production. Everything else is optional — these are not.</p>
+
+  <h3>The four core AI metrics</h3>
+  <table>
+    <thead>
+      <tr><th>Metric</th><th>What to track</th><th>Why it matters</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Token usage</strong></td><td>Input/output tokens per call, aggregated by feature</td><td>Drives cost, predicts budget burn rate</td></tr>
+      <tr><td><strong>Latency</strong></td><td>p50, p95, p99 per endpoint</td><td>User experience, timeout tuning</td></tr>
+      <tr><td><strong>Error rate</strong></td><td>By error type (429, 500, timeout, malformed)</td><td>Reliability, fallback trigger tuning</td></tr>
+      <tr><td><strong>Cost</strong></td><td>Per call, per user, per feature, daily/monthly</td><td>Budget management, chargeback</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Computing metrics from structured logs</h3>
+  <pre><code># From a stream of log entries, compute running metrics
+def compute_metrics(log_entries):
+    latencies = [e["latency_ms"] for e in log_entries]
+    return {
+        "total_input_tokens": sum(e["input_tokens"] for e in log_entries),
+        "total_output_tokens": sum(e["output_tokens"] for e in log_entries),
+        "p50_latency_ms": percentile(latencies, 50),
+        "p95_latency_ms": percentile(latencies, 95),
+        "p99_latency_ms": percentile(latencies, 99),
+        "error_rate": sum(1 for e in log_entries if e["status"] != "success") / len(log_entries),
+        "total_cost_usd": sum(e["cost_usd"] for e in log_entries),
+    }</code></pre>
+
+  <aside class="callout">
+    <strong>Interactive:</strong> The metrics dashboard below shows these four metrics updating in real time. Run AI calls in the sandbox and watch the dashboard respond. Simulated historical data shows trends over time.
+  </aside>
+
+  <aside class="key-takeaway">
+    If you track nothing else, track these four. Token usage tells you cost. Latency tells you UX. Error rate tells you reliability. Cost tells you sustainability.
+  </aside>
+</section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 3 of 7</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

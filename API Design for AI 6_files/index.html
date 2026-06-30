@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 1: API Design for AI</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="18"><div class="player-progress-fill" style="width: 18%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="auth-concept-primer">
+  <h2>Authentication for AI Services: The Concept Primer</h2>
+
+  <p>Every production AI feature has the same two questions to answer about every incoming request: <strong>who is this?</strong> (authentication) and <strong>what are they allowed to do?</strong> (authorization). API keys handle these for development; production needs more.</p>
+
+  <h3>Why API keys aren't enough at FINRA scale</h3>
+  <ul>
+    <li><strong>No user identity</strong> — a single key represents an entire service. You can't tell which user triggered which call. Audit trails dead-end at the service.</li>
+    <li><strong>No expiry</strong> — keys live until manually rotated. A leaked key keeps working until someone notices.</li>
+    <li><strong>No fine-grained scope</strong> — a key either works for the service or doesn't. You can't say "this caller can read but not write."</li>
+    <li><strong>No federation</strong> — every service rolls its own key store. Adding or removing a person means N service-team tickets.</li>
+  </ul>
+
+  <h3>OAuth 2.0 and OpenID Connect (OIDC) — the production answer</h3>
+  <p><strong>OAuth 2.0</strong> is a delegation protocol: the user authenticates with a trusted identity provider, which then issues short-lived <em>access tokens</em> that services can verify. <strong>OpenID Connect (OIDC)</strong> sits on top of OAuth 2.0 and adds an <em>ID token</em> — a signed JWT containing identity claims (who the user is, which groups they belong to, when the session expires).</p>
+
+  <p>FINRA's identity provider is <strong>FIP</strong>. Every production AI service authenticates users against FIP using OIDC and validates the resulting tokens server-side. There's no per-service password store; FIP is the single source of truth.</p>
+
+  <h3>The five things a JWT carries</h3>
+  <ol>
+    <li><strong>Subject (<code>sub</code>)</strong> — the user's identifier (e.g., <code>jdoe@finra.org</code>).</li>
+    <li><strong>Issuer (<code>iss</code>)</strong> — which identity provider minted the token (FIP).</li>
+    <li><strong>Audience (<code>aud</code>)</strong> — which service the token is intended for. A service must reject tokens issued for other audiences.</li>
+    <li><strong>Expiration (<code>exp</code>)</strong> — the unix timestamp when the token stops being valid. Typically ~1 hour.</li>
+    <li><strong>Claims</strong> — additional properties: scopes, AD groups, custom attributes. These drive authorization decisions.</li>
+  </ol>
+
+  <pre><code>// A real (but redacted) FIP-issued ID token, decoded:
+{
+  "sub": "jdoe@finra.org",
+  "iss": "https://isso.fip.finra.org/.../isso",
+  "aud": "fillip-prod",
+  "exp": 1718550000,
+  "iat": 1718546400,
+  "nonce": "9d4b8a12...",
+  "scope": "openid finra_profile FILLIP",
+  "groups": ["FILLIP_USERS", "TRADING_ANALYSTS"]
+}</code></pre>
+
+  <aside class="callout">
+    <strong>Concept-level for now.</strong> The next slide walks through the actual OIDC handshake — what happens between the browser, your service, and FIP when the user logs in. Implementation depth (the BFF pattern, PKCE, session management, secrets) lives in the <em>CI/CD &amp; Application Security</em> course (Track 6 Level 200).
+  </aside>
+
+  <aside class="key-takeaway">
+    OIDC turns "who is this?" into a token-validation problem instead of a credential-storage problem. Your service never sees the user's password — it just verifies a signed JWT against the identity provider's public keys.
+  </aside>
+</section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 6 of 8</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

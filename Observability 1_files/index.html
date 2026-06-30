@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 2: Observability</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="30"><div class="player-progress-fill" style="width: 30%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="why-ai-observability-different">
+  <h2>Why AI Observability Is Different</h2>
+
+  <p>Traditional services need three metrics: latency, error rate, and throughput. AI services need those <em>plus</em> an entirely new layer: token usage, prompt/response content, model version, confidence scores, and hallucination indicators. You need both layers to operate an AI feature in production.</p>
+
+  <h3>The two-layer observability model</h3>
+  <table>
+    <thead>
+      <tr><th>Layer</th><th>Metrics</th><th>Why</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Infrastructure (standard)</td><td>Latency, error rate, throughput, CPU, memory</td><td>Is the service healthy?</td></tr>
+      <tr><td>AI-specific</td><td>Token usage, cost per call, model version, confidence, prompt/response content</td><td>Is the AI behaving correctly?</td></tr>
+    </tbody>
+  </table>
+
+  <h3>What goes wrong without AI observability</h3>
+  <ul>
+    <li><strong>Silent quality degradation.</strong> The model starts hallucinating more, but error rate stays at 0% because the API returns 200 OK.</li>
+    <li><strong>Cost surprises.</strong> A prompt change doubles token usage. Without tracking, you find out on the monthly bill.</li>
+    <li><strong>Debugging blind spots.</strong> A multi-step AI workflow fails. Without trace correlation, you can't tell which step went wrong.</li>
+    <li><strong>Model drift.</strong> The provider updates the model. Your outputs change. Without content logging, you can't compare before/after.</li>
+  </ul>
+
+  <aside class="key-takeaway">
+    Standard APM tools (Datadog, CloudWatch) cover the infrastructure layer. For the AI layer, you need additional instrumentation — structured logging of every AI call with token counts, costs, and content.
+  </aside>
+</section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 1 of 7</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

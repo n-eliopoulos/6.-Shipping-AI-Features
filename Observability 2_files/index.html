@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 2: Observability</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="33"><div class="player-progress-fill" style="width: 33%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="structured-logging">
+  <h2>Structured Logging for AI</h2>
+
+  <p>Every AI call should produce a JSON log entry with: timestamp, request ID, model, input tokens, output tokens, latency, status, and cost estimate. Not print statements — structured, queryable, machine-readable logs.</p>
+
+  <h3>The minimum viable AI log entry</h3>
+  <pre><code>{
+  "timestamp": "2025-04-29T14:32:01.234Z",
+  "request_id": "req-7f3a2b",
+  "correlation_id": "workflow-abc-123",
+  "model": "claude-sonnet-4-20250514",
+  "input_tokens": 1250,
+  "output_tokens": 340,
+  "latency_ms": 2847,
+  "status": "success",
+  "cost_usd": 0.00885,
+  "feature": "trade-surveillance",
+  "user_id": "analyst-42"
+}</code></pre>
+
+  <h3>Correlation IDs for multi-step workflows</h3>
+  <p>A single user request may trigger 3 AI calls: classify → retrieve → summarize. A <code>correlation_id</code> links them together so you can trace the full workflow from a single ID.</p>
+
+  <pre><code>def log_ai_call(request_id, correlation_id, model, input_tokens,
+                output_tokens, latency_ms, status, feature):
+    entry = {
+        "timestamp": datetime.utcnow().isoformat() + "Z",
+        "request_id": request_id,
+        "correlation_id": correlation_id,
+        "model": model,
+        "input_tokens": input_tokens,
+        "output_tokens": output_tokens,
+        "latency_ms": latency_ms,
+        "status": status,
+        "cost_usd": compute_cost(model, input_tokens, output_tokens),
+        "feature": feature,
+    }
+    print(json.dumps(entry))</code></pre>
+
+  <aside class="callout">
+    <strong>Try it now:</strong> In the sandbox, implement a structured logger that wraps <code>ai_shim</code> calls. Every call produces a JSON log entry with all required fields. Run 5 calls and inspect the log output.
+  </aside>
+
+  <aside class="callout">
+    <strong>Alternative considered:</strong> Use <code>print()</code> or unstructured log lines like <code>logger.info(f"Called {model}, got {response}")</code>. This is fast to write and impossible to query at scale. Every dashboard, alert rule, and trace correlation you'll want to build downstream needs structured fields — you cannot grep your way to a 99th-percentile latency chart over six months of free-form text. The structured-from-day-one cost is a few extra fields per log line; the cost of converting later is rewriting every log statement in your codebase.
+  </aside>
+
+  <aside class="key-takeaway">
+    Structured logging is the foundation of AI observability. Every metric, dashboard, alert, and trace is built from these log entries. Get the schema right from day one.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Structured Logging for AI</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 2 of 7</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

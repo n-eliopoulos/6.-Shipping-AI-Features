@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 4: Error Handling and Degradation</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="94"><div class="player-progress-fill" style="width: 94%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="resilient-ai-feature-exercise">
+  <h2>Exercise: Build a Resilient AI Feature</h2>
+
+  <p>Build a <strong>regulatory report generation feature</strong> with full error handling. This is the capstone for the course — every pattern you've learned comes together here.</p>
+
+  <h3>Requirements</h3>
+  <ol>
+    <li><strong>3-tier model fallback</strong> — Sonnet → Haiku → cached response</li>
+    <li><strong>Rate limiting with queuing</strong> — 10 requests/minute, queue overflow, no drops</li>
+    <li><strong>Circuit breaker</strong> — Open after 3 failures, half-open after 30s, close after 2 successes</li>
+    <li><strong>Timeout handling with streaming</strong> — 10s timeout, graceful "still processing" response</li>
+    <li><strong>Budget enforcement</strong> — Daily budget with warning/critical/hard stop thresholds</li>
+    <li><strong>User-friendly error messages</strong> — Every failure mode produces an appropriate message</li>
+  </ol>
+
+  <h3>Chaos test suite (10 scenarios)</h3>
+  <ol>
+    <li>Normal request — succeeds with primary model</li>
+    <li>Rate limit — request queued and eventually processed</li>
+    <li>Single timeout — graceful "still processing" response</li>
+    <li>Primary model failure — falls back to Haiku</li>
+    <li>Both models fail — returns cached response</li>
+    <li>3 consecutive failures — circuit breaker opens</li>
+    <li>Circuit breaker recovery — half-open → probe → close</li>
+    <li>Budget warning — alert fires at 80%</li>
+    <li>Budget exhaustion — hard stop with graceful message</li>
+    <li>Combined: rate limit + timeout + fallback in sequence</li>
+  </ol>
+
+  <h3>Validation</h3>
+  <p>All 10 scenarios must pass: no unhandled exceptions, no silent failures, every failure produces an appropriate user-facing message, fallback chain activates correctly, budget hard stop works.</p>
+
+  <aside class="key-takeaway">
+    Production AI features fail in production. The question isn't whether they'll fail — it's whether your system handles failure gracefully or crashes spectacularly. Build for failure from the start.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Exercise: Build a Resilient AI Feature</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 7 of 7</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

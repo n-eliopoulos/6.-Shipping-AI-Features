@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 3: Cost Monitoring</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="58"><div class="player-progress-fill" style="width: 58%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="token-usage-tracking">
+  <h2>Token Usage Tracking</h2>
+
+  <p>Every AI call returns token counts. Capture them, tag them by feature and caller, and store them for trend analysis. The token counter is middleware — it wraps every AI call automatically.</p>
+
+  <h3>Token tracking middleware</h3>
+  <pre><code>class TokenTracker:
+    def __init__(self):
+        self.usage = []  # list of usage records
+
+    def track(self, model, feature, user_id, input_tokens, output_tokens):
+        self.usage.append({
+            "timestamp": time.time(),
+            "model": model,
+            "feature": feature,
+            "user_id": user_id,
+            "input_tokens": input_tokens,
+            "output_tokens": output_tokens,
+        })
+
+    def totals_by_feature(self):
+        by_feature = {}
+        for u in self.usage:
+            f = u["feature"]
+            if f not in by_feature:
+                by_feature[f] = {"input": 0, "output": 0}
+            by_feature[f]["input"] += u["input_tokens"]
+            by_feature[f]["output"] += u["output_tokens"]
+        return by_feature</code></pre>
+
+  <h3>What to aggregate</h3>
+  <ul>
+    <li><strong>By feature:</strong> "Trade surveillance used 12M tokens this week"</li>
+    <li><strong>By user:</strong> "Analyst team A used 3× more than team B"</li>
+    <li><strong>By model:</strong> "80% of tokens went to Sonnet, 20% to Haiku"</li>
+    <li><strong>Over time:</strong> "Token usage grew 40% month-over-month"</li>
+  </ul>
+
+  <aside class="callout">
+    <strong>Try it now:</strong> In the sandbox, build a token tracking middleware that wraps <code>ai_shim</code>. Every call records input/output tokens, model, and caller identity. Aggregate totals by feature after 10 calls.
+  </aside>
+
+  <aside class="key-takeaway">
+    Token tracking is the foundation of cost management. If you can't count tokens per feature, you can't attribute costs, set budgets, or detect anomalies.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Token Usage Tracking</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 2 of 6</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

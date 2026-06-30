@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 4: Error Handling and Degradation</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="76"><div class="player-progress-fill" style="width: 76%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="ai-failure-modes">
+  <h2>AI Failure Modes</h2>
+
+  <p>AI systems fail in ways traditional systems don't. Each failure mode requires a different response. Designing for failure starts with knowing the taxonomy.</p>
+
+  <h3>Failure mode taxonomy</h3>
+  <table>
+    <thead>
+      <tr><th>Failure</th><th>HTTP code</th><th>Cause</th><th>Correct response</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Rate limit</td><td>429</td><td>Too many requests to Bedrock</td><td>Queue and retry with backoff</td></tr>
+      <tr><td>Model timeout</td><td>504</td><td>Inference exceeds time limit</td><td>Retry once, then fallback to simpler model</td></tr>
+      <tr><td>API outage</td><td>503</td><td>Bedrock service unavailable</td><td>Circuit breaker → cached response</td></tr>
+      <tr><td>Malformed response</td><td>200 (bad body)</td><td>Model returns unparseable output</td><td>Retry with stricter prompt, then fallback</td></tr>
+      <tr><td>Hallucination</td><td>200 (wrong content)</td><td>Model generates false information</td><td>Validation layer, confidence thresholds</td></tr>
+      <tr><td>Context overflow</td><td>400</td><td>Input exceeds context window</td><td>Truncate or chunk input</td></tr>
+      <tr><td>Budget exhaustion</td><td>N/A (internal)</td><td>Daily/monthly budget exceeded</td><td>Return cached result + notification</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The key insight</h3>
+  <p>Traditional error handling treats all failures the same: retry, then fail. AI error handling must differentiate — a rate limit needs queuing, a hallucination needs validation, a budget exhaustion needs a completely different code path.</p>
+
+  <aside class="key-takeaway">
+    Map every failure mode to a specific response <em>before</em> you deploy. If your error handling is a single <code>except Exception</code> block, your AI feature is not production-ready.
+  </aside>
+
+  <h3>Go deeper</h3>
+  <p>IBM Technology explains why deploying LLMs is expensive and the infrastructure decisions that drive cost:</p>
+  <div class="video-embed">
+    <iframe src="./7caDFcTAssA.html" title="Why Are LLMs Expensive to Deploy? — IBM Technology" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+</section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 1 of 7</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

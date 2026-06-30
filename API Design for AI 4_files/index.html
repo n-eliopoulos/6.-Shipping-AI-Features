@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 1: API Design for AI</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="12"><div class="player-progress-fill" style="width: 12%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="timeouts-long-running">
+  <h2>Timeouts and Long-Running Inference</h2>
+
+  <p>Default 30-second timeouts will kill your AI calls. A complex compliance analysis can take 45 seconds. You need a layered timeout strategy: client timeout, server timeout, and model timeout — each serving a different purpose.</p>
+
+  <h3>The timeout stack</h3>
+  <table>
+    <thead>
+      <tr><th>Layer</th><th>Default</th><th>AI Recommendation</th><th>Purpose</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Client (browser/caller)</td><td>30s</td><td>60–120s</td><td>How long the caller waits before giving up</td></tr>
+      <tr><td>Server (API gateway)</td><td>30s</td><td>90s</td><td>How long the server holds the request</td></tr>
+      <tr><td>Model (Bedrock call)</td><td>60s</td><td>60s</td><td>How long the model provider allows</td></tr>
+    </tbody>
+  </table>
+
+  <h3>The graceful timeout pattern</h3>
+  <pre><code>async def analyze_with_timeout(request, timeout=10):
+    try:
+        result = await asyncio.wait_for(
+            call_model(request), timeout=timeout
+        )
+        return {"status": "complete", "result": result}
+    except asyncio.TimeoutError:
+        job_id = enqueue_background(request)
+        return {
+            "status": "processing",
+            "job_id": job_id,
+            "message": "Analysis is taking longer than usual. Poll for results."
+        }</code></pre>
+
+  <h3>Circuit breaker basics</h3>
+  <p>When a model is consistently slow or failing, stop sending requests. A circuit breaker tracks failures and "opens" the circuit after a threshold — returning a fast fallback instead of waiting for another timeout.</p>
+
+  <aside class="callout">
+    <strong>Try it now:</strong> In the sandbox, configure timeout handling for an AI call. Simulate a 15-second response and implement a timeout wrapper that returns a graceful "still processing" response at 10 seconds.
+  </aside>
+
+  <aside class="key-takeaway">
+    Never use default timeouts for AI endpoints. Set explicit timeouts at every layer, and always have a plan for what happens when the timeout fires — don't just return a 504.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Timeouts and Long-Running Inference</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 4 of 8</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

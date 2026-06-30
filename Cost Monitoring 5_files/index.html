@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 3: Cost Monitoring</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="67"><div class="player-progress-fill" style="width: 67%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="cost-optimization-levers">
+  <h2>Cost Optimization Levers</h2>
+
+  <p>You don't need to sacrifice quality to cut costs. Four levers can reduce AI spend by 30–60% without degrading output quality.</p>
+
+  <h3>The four levers</h3>
+  <table>
+    <thead>
+      <tr><th>Lever</th><th>Savings</th><th>Effort</th><th>Risk</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><strong>Model selection</strong> — Use Haiku for simple tasks, Sonnet for complex</td><td>50–90%</td><td>Low</td><td>Quality may drop for edge cases</td></tr>
+      <tr><td><strong>Prompt trimming</strong> — Remove verbose system prompts, redundant context</td><td>10–30%</td><td>Low</td><td>Minimal if done carefully</td></tr>
+      <tr><td><strong>Response caching</strong> — Cache identical or near-identical queries</td><td>20–50%</td><td>Medium</td><td>Stale results for dynamic data</td></tr>
+      <tr><td><strong>Batching</strong> — Combine multiple small requests into one</td><td>10–20%</td><td>Medium</td><td>Latency increase for individual items</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Example: $500/day → $180/day</h3>
+  <pre><code># Before: All calls use Sonnet, verbose prompts, no caching
+# Daily cost: $500
+
+# Optimization 1: Route simple classifications to Haiku
+# 60% of calls are simple → saves $180/day
+
+# Optimization 2: Cache repeated entity lookups
+# 25% of calls are duplicates → saves $75/day
+
+# Optimization 3: Trim system prompt from 800 to 200 tokens
+# Saves ~15% on input costs → saves $45/day
+
+# After: $500 - $180 - $75 - $45 = $200/day (60% reduction)</code></pre>
+
+  <aside class="callout">
+    <strong>Try it now:</strong> In the sandbox, take a feature costing $500/day. Apply three optimizations: switch low-complexity calls to Haiku, cache repeated entity lookups, and trim verbose system prompts. Measure the new cost. Target: under $200/day.
+  </aside>
+
+  <aside class="key-takeaway">
+    Model selection is the biggest lever. If 60% of your calls don't need Sonnet-level reasoning, switching them to Haiku cuts your bill in half overnight.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Cost Optimization Levers</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 5 of 6</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

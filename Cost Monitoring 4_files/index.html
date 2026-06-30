@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 3: Cost Monitoring</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="64"><div class="player-progress-fill" style="width: 64%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="budget-alerting">
+  <h2>Budget Alerting</h2>
+
+  <p>Set daily, weekly, and monthly budgets per feature. Alert at 80% (warning), 95% (critical), and 100% (hard stop). A hard stop that actually stops spending is the only thing between you and a surprise bill.</p>
+
+  <h3>Budget enforcement tiers</h3>
+  <table>
+    <thead>
+      <tr><th>Threshold</th><th>Action</th><th>User impact</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>80% (warning)</td><td>Alert to Slack/email, log warning</td><td>None — informational</td></tr>
+      <tr><td>95% (critical)</td><td>Page on-call, escalate to team lead</td><td>None — but action needed soon</td></tr>
+      <tr><td>100% (hard stop)</td><td>Reject new AI calls, return cached/fallback</td><td>Degraded service with graceful message</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Implementation pattern</h3>
+  <pre><code>class BudgetEnforcer:
+    def __init__(self, daily_budget_usd):
+        self.daily_budget = daily_budget_usd
+        self.spent_today = 0.0
+
+    def check(self, estimated_cost):
+        ratio = (self.spent_today + estimated_cost) / self.daily_budget
+        if ratio &gt;= 1.0:
+            return {"allowed": False, "reason": "Daily budget exhausted",
+                    "message": "Service temporarily limited. Try again tomorrow."}
+        if ratio &gt;= 0.95:
+            self.alert("critical", f"Budget at {ratio:.0%}")
+        elif ratio &gt;= 0.80:
+            self.alert("warning", f"Budget at {ratio:.0%}")
+        self.spent_today += estimated_cost
+        return {"allowed": True}</code></pre>
+
+  <aside class="callout">
+    <strong>Try it now:</strong> In the sandbox, configure budget limits for a feature. Run calls until the warning fires, then until the hard stop triggers. Verify the system rejects calls after budget exhaustion with a graceful error message.
+  </aside>
+
+  <aside class="key-takeaway">
+    A budget alert without a hard stop is just a notification you'll ignore at 2 AM. Implement actual enforcement — reject calls when the budget is exhausted and return a graceful fallback.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Budget Alerting</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 4 of 6</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

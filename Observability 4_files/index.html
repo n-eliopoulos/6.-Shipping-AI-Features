@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 2: Observability</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="39"><div class="player-progress-fill" style="width: 39%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="trace-aggregation">
+  <h2>Trace Aggregation</h2>
+
+  <p>A single user request may trigger 3 AI calls: classify → retrieve → summarize. Tracing connects them into a single story. Without traces, you see isolated calls. With traces, you see the full workflow — timing, dependencies, and where things went wrong.</p>
+
+  <h3>Trace anatomy</h3>
+  <pre><code>Trace: workflow-abc-123 (total: 8.2s, cost: $0.034)
+├── span: classify    (1.2s, 450 in / 80 out,  $0.002)
+├── span: retrieve    (0.3s, — no AI call, vector search —)
+└── span: summarize   (6.7s, 2100 in / 520 out, $0.014)</code></pre>
+
+  <h3>Key concepts</h3>
+  <ul>
+    <li><strong>Trace ID.</strong> A unique identifier for the entire workflow. Propagated through every step.</li>
+    <li><strong>Span.</strong> One unit of work within a trace. Each AI call is a span. Non-AI steps (DB queries, vector search) are also spans.</li>
+    <li><strong>Parent/child hierarchy.</strong> Spans nest. The top-level request is the root span; each AI call is a child.</li>
+    <li><strong>Timing waterfall.</strong> Visual representation showing when each span started, how long it took, and which ran in parallel.</li>
+  </ul>
+
+  <h3>What traces reveal</h3>
+  <ul>
+    <li>Which step in a multi-call workflow is the bottleneck</li>
+    <li>Whether steps could run in parallel instead of sequentially</li>
+    <li>Total cost of a user request across all AI calls</li>
+    <li>Where errors propagate through the workflow</li>
+  </ul>
+
+  <aside class="callout">
+    <strong>Interactive:</strong> The trace viewer below shows a waterfall visualization for a multi-step AI workflow. Click into each span to see token usage, latency, and cost. Try identifying the bottleneck.
+  </aside>
+
+  <aside class="key-takeaway">
+    Traces turn "the AI is slow" into "the summarize step takes 6.7 seconds because the input is 2,100 tokens — let's trim the context." Without traces, you're guessing.
+  </aside>
+</section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 4 of 7</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

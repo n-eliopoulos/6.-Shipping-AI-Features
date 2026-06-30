@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 3: Cost Monitoring</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="55"><div class="player-progress-fill" style="width: 55%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="cost-reality">
+  <h2>The Cost Reality</h2>
+
+  <p>Claude Sonnet: ~$3 per million input tokens, ~$15 per million output tokens. That sounds cheap until you do the math at FINRA scale.</p>
+
+  <h3>A real scenario</h3>
+  <p>A compliance screening feature processes 10,000 documents per day. Each document averages 2,000 input tokens and generates a 500-token analysis.</p>
+
+  <table>
+    <thead>
+      <tr><th>Component</th><th>Daily tokens</th><th>Daily cost</th><th>Monthly cost</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Input (10K × 2,000)</td><td>20M tokens</td><td>$60</td><td>$1,800</td></tr>
+      <tr><td>Output (10K × 500)</td><td>5M tokens</td><td>$75</td><td>$2,250</td></tr>
+      <tr><td><strong>Total</strong></td><td><strong>25M tokens</strong></td><td><strong>$135</strong></td><td><strong>$4,050</strong></td></tr>
+    </tbody>
+  </table>
+
+  <p>That's one feature. Multiply by 5 AI features across the organization and you're looking at $20,000+/month — and that's before anyone makes a mistake with prompt length or forgets to set a budget cap.</p>
+
+  <h3>Model cost comparison</h3>
+  <table>
+    <thead>
+      <tr><th>Model</th><th>Input $/1M</th><th>Output $/1M</th><th>Same workload monthly</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Claude Haiku 4.5</td><td>$1.00</td><td>$5.00</td><td>$1,350</td></tr>
+      <tr><td>Claude Sonnet 4.6</td><td>$3.00</td><td>$15.00</td><td>$4,050</td></tr>
+      <tr><td>Claude Opus 4.7</td><td>$5.00</td><td>$25.00</td><td>$6,750</td></tr>
+    </tbody>
+  </table>
+
+  <p><em>Note: 2024-era pricing had Haiku at $0.25/$1.25 and Opus at $15/$75 — a ~60× spread between cheapest and most-capable. The 2026 lineup compressed this to a ~5× spread, narrowing the cost case for routing-by-tier without changing its shape.</em></p>
+
+  <aside class="callout">
+    <strong>Interactive:</strong> The cost calculator below lets you enter model, average tokens per call, and calls per day. See daily/monthly/annual cost and compare across models.
+  </aside>
+
+  <aside class="key-takeaway">
+    Cost monitoring isn't optional. An unmonitored AI feature at FINRA scale can burn through budget in hours. Know your cost per call, per feature, per day — before you deploy.
+  </aside>
+</section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 1 of 6</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

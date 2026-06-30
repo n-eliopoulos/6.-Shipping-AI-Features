@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 4: Error Handling and Degradation</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="88"><div class="player-progress-fill" style="width: 88%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="user-facing-error-design">
+  <h2>User-Facing Error Design</h2>
+
+  <p>Users don't care about 429s or 503s. They care about: "Is my request being processed?" Error messages should be honest, helpful, and actionable — not technical status codes.</p>
+
+  <h3>Bad vs. good error messages</h3>
+  <table>
+    <thead>
+      <tr><th>Failure</th><th>Bad</th><th>Good</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Rate limit</td><td>"Error 429: Too Many Requests"</td><td>"High demand right now. Your request is queued — estimated wait: 30 seconds."</td></tr>
+      <tr><td>Timeout</td><td>"Internal Server Error"</td><td>"Analysis is taking longer than usual. We'll notify you when it's ready."</td></tr>
+      <tr><td>Model outage</td><td>"Service Unavailable"</td><td>"We're using a simplified analysis while our primary system recovers. Full results available soon."</td></tr>
+      <tr><td>Budget exhaustion</td><td>"Request Denied"</td><td>"Daily analysis limit reached. Cached results are available. Full service resumes tomorrow."</td></tr>
+      <tr><td>Slow response</td><td>(blank screen for 10s)</td><td>Progress indicator: "Analyzing trade patterns... Assessing risk factors... Generating report..."</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Error message principles</h3>
+  <ul>
+    <li><strong>Honest:</strong> Don't pretend everything is fine. "Using simplified analysis" is better than silently degrading.</li>
+    <li><strong>Helpful:</strong> Tell the user what's happening and what to expect next.</li>
+    <li><strong>Actionable:</strong> Give the user something to do — wait, retry, use cached results, or contact support.</li>
+  </ul>
+
+  <aside class="callout">
+    <strong>Interactive:</strong> The error UX gallery below shows side-by-side comparisons of bad vs. good error handling for 5 AI failure scenarios. Notice how the good versions always tell the user what's happening and what to do next.
+  </aside>
+
+  <aside class="key-takeaway">
+    Every error message should answer three questions: What happened? What are we doing about it? What can the user do? If your error message doesn't answer all three, rewrite it.
+  </aside>
+</section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 5 of 7</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

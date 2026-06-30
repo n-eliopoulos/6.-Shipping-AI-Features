@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 1: API Design for AI</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="15"><div class="player-progress-fill" style="width: 15%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="request-validation-rate-limiting">
+  <h2>Request Validation and Rate Limiting</h2>
+
+  <p>Every AI call costs money. Validate inputs <em>before</em> sending them to the model. Reject oversized requests, enforce rate limits, and estimate token costs upfront. At FINRA scale, one unvalidated endpoint can burn through your monthly Bedrock budget in hours.</p>
+
+  <h3>Pre-call validation checklist</h3>
+  <ul>
+    <li><strong>Token estimation.</strong> Estimate input tokens (~4/3 tokens per word). Reject requests exceeding your budget per call.</li>
+    <li><strong>Input sanitization.</strong> Strip unnecessary whitespace, validate required fields, check for prompt injection patterns.</li>
+    <li><strong>Content length limits.</strong> Set max input size per endpoint — a 100K-token request costs 100× more than a 1K-token request.</li>
+  </ul>
+
+  <h3>Rate limiting strategies</h3>
+  <pre><code># Token bucket rate limiter
+class RateLimiter:
+    def __init__(self, max_requests, window_seconds):
+        self.max_requests = max_requests
+        self.window = window_seconds
+        self.requests = {}  # user_id → [timestamps]
+
+    def allow(self, user_id):
+        now = time.time()
+        user_reqs = [t for t in self.requests.get(user_id, [])
+                     if now - t &lt; self.window]
+        if len(user_reqs) &gt;= self.max_requests:
+            return False
+        user_reqs.append(now)
+        self.requests[user_id] = user_reqs
+        return True</code></pre>
+
+  <h3>Why rate limiting AI is non-negotiable</h3>
+  <table>
+    <thead>
+      <tr><th>Without rate limits</th><th>With rate limits</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>One script sends 10,000 requests/hour</td><td>Capped at 100 requests/hour per user</td></tr>
+      <tr><td>Bedrock quota exhausted for all teams</td><td>Fair share across all consumers</td></tr>
+      <tr><td>$50,000 surprise bill</td><td>Predictable, budgeted costs</td></tr>
+    </tbody>
+  </table>
+
+  <aside class="callout">
+    <strong>Try it now:</strong> In the sandbox, build a request validator that estimates token count, rejects inputs over a budget, and enforces a per-user rate limit. Test with normal and oversized inputs.
+  </aside>
+
+  <aside class="key-takeaway">
+    Validate before you spend. Token estimation + rate limiting + input size caps are the minimum viable protection for any AI endpoint.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Request Validation and Rate Limiting</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 5 of 8</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

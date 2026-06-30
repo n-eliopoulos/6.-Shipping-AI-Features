@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 1: API Design for AI</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="6"><div class="player-progress-fill" style="width: 6%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="endpoint-design-patterns">
+  <h2>Endpoint Design Patterns</h2>
+
+  <p>AI endpoints fall into three patterns: synchronous (simple, blocking), asynchronous (poll for results), and streaming (token-by-token). The right choice depends on latency tolerance and response size.</p>
+
+  <h3>Synchronous — request/response</h3>
+  <pre><code>POST /api/v1/analyze
+{
+  "trade_description": "Large block trade in AAPL...",
+  "analysis_type": "risk_assessment"
+}
+→ 200 OK
+{
+  "risk_level": "elevated",
+  "confidence": 0.87,
+  "citations": ["Rule 5210", "FINRA Notice 21-03"]
+}</code></pre>
+  <p>Best for: fast tasks (&lt;5s), backend pipelines where the caller can wait.</p>
+
+  <h3>Asynchronous — submit + poll</h3>
+  <pre><code>POST /api/v1/analyze → 202 Accepted { "job_id": "abc-123" }
+GET  /api/v1/jobs/abc-123 → 200 { "status": "processing" }
+GET  /api/v1/jobs/abc-123 → 200 { "status": "complete", "result": {...} }</code></pre>
+  <p>Best for: long-running analysis (&gt;10s), batch processing, workflows where the user navigates away.</p>
+
+  <h3>Streaming — Server-Sent Events</h3>
+  <pre><code>POST /api/v1/analyze?stream=true
+→ 200 OK (text/event-stream)
+data: {"token": "The"}
+data: {"token": " trade"}
+data: {"token": " shows"}
+data: {"done": true, "usage": {"input_tokens": 450, "output_tokens": 128}}</code></pre>
+  <p>Best for: user-facing chat, long-form generation, any case where perceived latency matters.</p>
+
+  <aside class="callout">
+    <strong>Try it now:</strong> In the sandbox, build a request/response schema for a trade surveillance <code>/analyze</code> endpoint. Define the request body (trade description, analysis type) and response body (risk assessment, confidence, citations).
+  </aside>
+
+  <aside class="key-takeaway">
+    Most AI features need at least two patterns: synchronous for simple calls, and either async or streaming for longer ones. Design both from the start — retrofitting async is painful.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Endpoint Design Patterns</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 2 of 8</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

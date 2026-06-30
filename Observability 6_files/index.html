@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 2: Observability</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="45"><div class="player-progress-fill" style="width: 45%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="alerting-ai-metrics">
+  <h2>Alerting on AI Metrics</h2>
+
+  <p>Metrics without alerts are just dashboards nobody checks. Define alert rules for the conditions that require human action — and tune thresholds so they're not too noisy to be useful.</p>
+
+  <h3>What to alert on</h3>
+  <table>
+    <thead>
+      <tr><th>Condition</th><th>Threshold example</th><th>Action</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Latency spike</td><td>p95 &gt; 10s for 5 minutes</td><td>Check model status, consider fallback</td></tr>
+      <tr><td>Error rate increase</td><td>&gt;5% errors in 10-minute window</td><td>Open circuit breaker, page on-call</td></tr>
+      <tr><td>Cost anomaly</td><td>Hourly cost &gt; 2× rolling average</td><td>Investigate prompt injection or runaway client</td></tr>
+      <tr><td>Token usage surge</td><td>Output tokens &gt; 3× expected per call</td><td>Check for prompt injection causing verbose output</td></tr>
+    </tbody>
+  </table>
+
+  <h3>Static thresholds vs. anomaly detection</h3>
+  <ul>
+    <li><strong>Static thresholds</strong> — Simple, predictable. "Alert if p95 latency &gt; 10s." Works well for known baselines.</li>
+    <li><strong>Anomaly detection</strong> — Learns normal patterns, alerts on deviations. Better for cost and token usage where "normal" varies by time of day.</li>
+  </ul>
+
+  <aside class="callout">
+    <strong>Try it now:</strong> In the sandbox, configure alert rules for the metrics dashboard. Then simulate a latency spike (model slowdown) and a cost anomaly (prompt injection causing huge outputs). Verify your alerts fire correctly.
+  </aside>
+
+  <aside class="key-takeaway">
+    Start with 4 alerts: latency spike, error rate increase, cost anomaly, and token usage surge. Tune thresholds after a week of baseline data. An alert that fires 10 times a day gets ignored.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Alerting on AI Metrics</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 6 of 7</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

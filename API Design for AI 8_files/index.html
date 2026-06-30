@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 1: API Design for AI</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="24"><div class="player-progress-fill" style="width: 24%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="design-ai-api-exercise">
+  <h2>Exercise: Design an AI API</h2>
+
+  <p>Design a complete API for a <strong>compliance document screening service</strong> at FINRA. This service receives regulatory filings, classifies them by type, performs detailed analysis, and generates summaries.</p>
+
+  <h3>Requirements</h3>
+  <p>Define three endpoints:</p>
+  <ol>
+    <li><strong>Synchronous classification</strong> — Quick categorization of a document (risk level, document type). Should return in &lt;5 seconds.</li>
+    <li><strong>Async detailed analysis with polling</strong> — Deep analysis that may take 30–60 seconds. Submit, get a job ID, poll for results.</li>
+    <li><strong>Streaming summary</strong> — Generate a human-readable summary with tokens streamed as they're produced.</li>
+  </ol>
+
+  <h3>For each endpoint, define:</h3>
+  <ul>
+    <li>Request schema (required fields, optional parameters)</li>
+    <li>Response schema (success and error cases)</li>
+    <li>Timeout configuration (client, server, model)</li>
+    <li>Rate limit rules (requests/minute, tokens/minute)</li>
+    <li>Input validation rules (max size, required fields)</li>
+  </ul>
+
+  <aside class="callout">
+    <strong>In the sandbox:</strong> Build out the endpoint schemas, timeout values, and rate limit rules. The system validates completeness and checks for common mistakes — missing error responses, no timeout config, no rate limits.
+  </aside>
+
+  <aside class="key-takeaway">
+    A well-designed AI API anticipates failure at every layer. If your schema doesn't include error responses, timeout values, and rate limits, it's not production-ready.
+  </aside>
+<div class="sandbox-card"><div class="sandbox-header"><strong>Exercise: Exercise: Design an AI API</strong><div class="sandbox-controls"><button type="button" class="sandbox-reset-btn" title="Restore the starter code">Reset</button><button type="button" class="sandbox-run-btn">Run</button></div></div><textarea class="sandbox-editor" spellcheck="false"></textarea><div class="sandbox-output-label">Output</div><pre class="sandbox-output" data-empty="1">(click Run to execute)</pre></div></section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 8 of 8</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>

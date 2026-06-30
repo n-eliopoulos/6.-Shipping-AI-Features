@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<!-- saved from url=(0173)https://cdn5.dcbstatic.com/files/f/i/finra_docebosaas_com/1782867600/2IhGVdpTCYfv7A83iixjcg/scorm/2e33191530b71562983d145f465a06dea2b42c3db5cbf475de268c54611326d8/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shipping AI Features</title>
+  <link rel="stylesheet" href="./prism.css">
+  <link rel="stylesheet" href="./player.css">
+</head>
+<body>
+  <div id="app" class="app" aria-live="polite"><header class="player-header"><h1>Shipping AI Features</h1><span class="module-label">Module 1: API Design for AI</span><div class="player-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="21"><div class="player-progress-fill" style="width: 21%;"></div></div></header><main class="player-content" aria-live="polite"><div><section class="slide" data-slide-id="oidc-walkthrough">
+  <h2>OIDC Walkthrough: What Happens When a User Logs In</h2>
+
+  <p>OIDC is built on the <strong>authorization code flow</strong>. The user, your service, and the identity provider exchange a sequence of redirects and tokens. Knowing the shape of this flow is enough at the concept level — you'll implement it at depth in the <em>CI/CD &amp; Application Security</em> course.</p>
+
+  <h3>The eight-step handshake</h3>
+  <ol>
+    <li><strong>User hits your service.</strong> No session cookie yet — your service responds 401 (or redirects to login).</li>
+    <li><strong>Your service redirects to FIP</strong> with parameters identifying itself (<code>client_id</code>), where to come back (<code>redirect_uri</code>), what's being requested (<code>scope=openid finra_profile</code>), and three security values: <code>state</code> (CSRF protection), <code>nonce</code> (replay protection), and <code>code_challenge</code> (PKCE).</li>
+    <li><strong>FIP authenticates the user</strong> — credentials, MFA, whatever its policy says. This part is FIP's responsibility; your service is uninvolved.</li>
+    <li><strong>FIP redirects back to your service</strong> with an <em>authorization code</em> (one-time, ~60-second TTL) and the original <code>state</code>.</li>
+    <li><strong>Your service exchanges the code for tokens.</strong> A direct server-to-server POST to FIP including the code, the <code>code_verifier</code> (the original PKCE secret), and the service's own client credentials.</li>
+    <li><strong>FIP returns three tokens:</strong>
+      <ul>
+        <li><code>id_token</code> — JWT with user identity claims.</li>
+        <li><code>access_token</code> — used to call other services on the user's behalf.</li>
+        <li><code>refresh_token</code> — long-lived, used to get new access tokens without re-authenticating.</li>
+      </ul>
+    </li>
+    <li><strong>Your service validates the ID token:</strong> signature against FIP's JWKS, issuer, audience, expiration, and that the <code>nonce</code> matches what was sent in step 2. Anything off → reject.</li>
+    <li><strong>Your service creates a session</strong> for the authenticated user (typically a session ID in a server-side store, returned to the browser as an HttpOnly cookie). Tokens stay server-side; the browser never sees them.</li>
+  </ol>
+
+  <h3>The three layers of defense in this flow</h3>
+  <table>
+    <tbody><tr><th>Layer</th><th>Mechanism</th><th>Attack prevented</th></tr>
+    <tr><td>CSRF</td><td><code>state</code> parameter</td><td>Attacker can't initiate a login on the victim's behalf — state mismatch on callback.</td></tr>
+    <tr><td>Token replay</td><td><code>nonce</code> in ID token</td><td>Attacker can't reuse a stolen ID token in a new flow — nonce won't match.</td></tr>
+    <tr><td>Code interception</td><td>PKCE (<code>code_verifier</code>)</td><td>Attacker intercepting the authorization code from URLs/logs can't exchange it without the verifier.</td></tr>
+  </tbody></table>
+
+  <aside class="callout">
+    <strong>What's next:</strong> The full implementation — where to store <code>state</code>, how PKCE actually computes the challenge, how sessions get refreshed when the access token expires, where secrets live — is detailed in <em>CI/CD &amp; Application Security</em> (Track 6 Level 200). For agents and MCP, the second-half story (calling downstream services on the user's behalf via <em>token exchange</em>) is in <em>Multi-Agent Systems</em> (Track 3 Level 300) and <em>Building MCP Servers</em> (Track 4 Level 200).
+  </aside>
+
+  <h3>Go deeper: the canonical conceptual talk</h3>
+  <p>If you want a longer expert-led explanation in plain language, Nate Barbettini's <em>OAuth 2.0 and OpenID Connect (in plain English)</em> is the most-watched OAuth/OIDC explainer on the internet (2M+ views). Recorded at Oktane 2018 but the protocol fundamentals are unchanged. The 8-step flow above is the FINRA-specific summary; this video is the full conceptual treatment.</p>
+  <div class="video-embed">
+    <iframe src="./996OiexHze0.html" title="OAuth 2.0 and OpenID Connect (in plain English) — Nate Barbettini, Oktane 2018" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="" loading="lazy"></iframe>
+  </div>
+
+  <aside class="key-takeaway">
+    OIDC's authorization code flow is a choreography between three parties — user, your service, and FIP. Each step exists to defend against a specific attack. Understanding the dance is sufficient for shipping; implementing it correctly is a Level 200 concern.
+  </aside>
+</section>
+</div></main><footer class="player-footer"><button class="btn">← Previous</button><span class="player-counter">Slide 7 of 8</span><button class="btn btn-primary">Next →</button></footer></div>
+  <script src="./scorm-api.js"></script>
+  <script src="./prism.js"></script>
+  <script src="./prism-python.js"></script>
+  <script src="./player.js"></script>
+
+
+</body></html>
